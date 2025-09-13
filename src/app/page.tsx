@@ -27,7 +27,7 @@ export default function NexusMindPlatform() {
     }
   ])
 
-  const handleLike = (postId) => {
+  const handleLike = (postId: number) => {
     setPosts(posts.map(post => 
       post.id === postId 
         ? { ...post, engagement: { ...post.engagement, likes: post.engagement.likes + 1 } }
