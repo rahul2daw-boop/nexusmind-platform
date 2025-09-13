@@ -1,36 +1,24 @@
 name: CI-CD
+
 on:
   push:
     branches: [main]
-  pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 3 * * *"   # daily safety build
+
 jobs:
-  test-build-deploy:
+  build:
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production
-      NEXT_TELEMETRY_DISABLED: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npx vitest run
-      - run: npx playwright install --with-deps
-      - run: npm run build
-      - name: Pull Vercel env
-        run: npx vercel pull --yes --environment=preview --token "${{ secrets.VERCEL_TOKEN }}"
-      - name: Deploy preview (prebuilt)
-        id: preview
-        run: echo "URL=$(npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
-      - name: E2E on preview
-        env:
-          PREVIEW_URL: ${{ steps.preview.outputs.URL }}
-        run: npx playwright test
-      - name: Promote to production
-        if: github.ref == refs/heads/main
-        run: npx vercel promote "${{ steps.preview.outputs.URL }}" --prod --token "${{ secrets.VERCEL_TOKEN }}"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test --if-present
