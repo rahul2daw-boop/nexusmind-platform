@@ -1,0 +1,48 @@
+:root {
+  --quantum-blue: #00D4FF;
+  --neural-purple: #8B5CF6;
+  --consciousness-pink: #F472B6;
+  --intelligence-green: #10B981;
+  --energy-yellow: #F59E0B;
+  --void-black: #0F0F23;
+  --thought-gray: #1E293B;
+  --gradient-neural: linear-gradient(135deg, var(--quantum-blue) 0%, var(--neural-purple) 50%, var(--consciousness-pink) 100%);
+  --gradient-intelligence: linear-gradient(45deg, var(--intelligence-green), var(--quantum-blue));
+  --gradient-consciousness: linear-gradient(90deg, var(--consciousness-pink), var(--neural-purple));
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.neural-glow {
+  box-shadow: 0 0 20px var(--quantum-blue), 0 0 40px var(--neural-purple);
+  animation: neuralPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neuralPulse {
+  0% { box-shadow: 0 0 20px var(--quantum-blue), 0 0 40px var(--neural-purple); }
+  100% { box-shadow: 0 0 30px var(--quantum-blue), 0 0 60px var(--neural-purple), 0 0 80px var(--consciousness-pink); }
+}
+
+.thought-bubble {
+  position: relative;
+  background: var(--gradient-neural);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.thought-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  background: var(--gradient-neural);
+  transform: rotate(45deg);
+}
