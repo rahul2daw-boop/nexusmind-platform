@@ -1,8 +1,7 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  // Temporarily skip ESLint at build time to avoid ESLint v9 option errors
+  // Temporarily bypass ESLint at build time until ESLint v9 migration is complete
   eslint: { ignoreDuringBuilds: true },
-  // Remove any experimental.turbo usage (Turbopack config is now top-level "turbopack" if needed)
-  // See: https://nextjs.org/docs/messages/invalid-next-config
+  // Remove deprecated/invalid experimental.turbo usage for Next 15
 };
 export default nextConfig;
