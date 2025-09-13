@@ -1,0 +1,20 @@
+name: Tech-Watch-PR
+on:
+  schedule:
+    - cron: "0 */12 * * *"  # every 12h
+  workflow_dispatch:
+jobs:
+  research-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node scripts/research.mjs
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(research): refresh tech watch"
+          title: "chore(research): refresh tech watch"
+          body: "Automated tech watch digest; pipeline will test & preview before merge."
+          branch: bot/tech-watch
+          base: main
